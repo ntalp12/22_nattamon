@@ -51,3 +51,41 @@ docker volume ls
 docker run -d --name mysql02 --network wordpress02 -v mysql_volume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=wordpress02_db -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress mysql:5.7
 docker run -d --name wordpress02 --network wordpress02 -v wp_volume:/var/www/html -e WORDPRESS_DB_HOST=mysql02 -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress -e WORDPRESS_DB_NAME=wordpress02_db -p 889:80 wordpress
 docker run --name pma02 --network wordpress02 -p 8889:80 -e PMA_ARBITRARY=1 -d phpmyadmin/phpmyadmin
+
+แบบ 3 bindmount
+docker network create wordpress03
+docker run -d --name mysql03 --network wordpress03 -v C:\Users\ADMIN\Desktop\Docker\wordpress\mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=1111 -e MYSQL_DATABASE=wordpress03_db -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress mysql:5.7
+docker run -d --name wordpress03 --network wordpress03 -v C:\Users\ADMIN\Desktop\Docker\wordpress\wp:/var/www/html -e WORDPRESS_DB_HOST=mysql03 -e WORDPRESS_DB_USER=wordpress -e WORDPRESS_DB_PASSWORD=wordpress -e WORDPRESS_DB_NAME=wordpress03_db -p 890:80 wordpress
+docker run --name pma03 --network wordpress03 -p 8890:80 -e PMA_ARBITRARY=1 -d phpmyadmin/phpmyadmin
+
+docker compose
+
+โครงสร้าง
+version: '3'
+services:
+  wordpress:
+  db:
+  phpmyadmin:
+networks:
+  myNetwork:
+volumes:
+  database:
+
+รันปกติ
+docker-compose up
+
+รันแบบระบุชื่อ
+docker-compose up -f aaa.yml
+
+รันแบบยังไม่เริ่มทำงาน
+docker-compose up --no-start
+
+ปิดและลบ
+docker-compose down
+
+รันแบบไม่ค้าง
+*** docker-compose up -d
+
+docker-compose ps
+
+docker-compose start

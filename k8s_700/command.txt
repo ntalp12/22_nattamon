@@ -18,3 +18,30 @@ kubectl delete deployments client-deployment
 kubectl get all
 
 kubectl apply -f . //รันหลายที่พร้อมกัน
+
+client-service.yml
+apiVersion: v1
+kind: Service
+metadata: 
+  name: client-service
+spec:
+  type: NodePort
+  selector:
+    app: client
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30001
+
+client-deployment.yml
+
+
+http://localhost:30002/api/health
+docker pull mongo
+
+kubectl delete all --all
+kubectl apply -f .
+kubectl get all
+
+//check
+kubectl logs mongo-deployment-7c76b79684-46xp2

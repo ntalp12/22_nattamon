@@ -45,3 +45,14 @@ kubectl get all
 
 //check
 kubectl logs mongo-deployment-7c76b79684-46xp2
+
+(ingress เป็น gateway จัดสรรเส้นทางที่ user เป็นคน request มา)
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.11.2/deploy/static/provider/cloud/deploy.yaml
+
+kubectl delete all --all
+kubectl apply -f .
+todo.com
+todo.com/api/todo
+kubectl get all
+kubectl delete pods mongo-deployment-5fbbbc6887-8r2jp
+

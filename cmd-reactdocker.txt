@@ -1,0 +1,37 @@
+FROM: 18 # โหลดเวอร์ชัน 18
+COPY package*.json ./
+RUN npm ci #
+COPY . .
+
+npm install
+npm run dev //แล้วเช็ค link localhost
+ctrl+c //ออก
+ 
+# รันคำสั่ง check ว่า run ได้มั้ย
+RUN npm run build //จะได้ไฟล์ dist หรือ build
+  npx serve -s dist //ได้ link loacalhost:30000
+  //ถ้า error ให้ npm i serve ที่ terminal ก่อน
+  //เสร็จแล้วลบ dist, node_modules ทิ้ง
+
+# เช้า docker hub สร้าง repo ใหม่ react-docker-test3
+docker login //เพื่อใช้ credentials
+docker build -t ntalp12/react-docker-test3:0.1 . //หลัง : ระบุ tag ของเวอร์ชัน อย่าลืมจุด
+docker images // check ว่ามี images ที่เราสร้างไว้มั้ย เวอร์ชันตรงมั้ย
+docker run -d -p 3000:3000 --name react-docker ntalp12/react-docker-test3:0.1 //รันให้ images ลงบนเครื่อง
+docker stop react-docker //หยุด
+docker rm react-docker //ลบ
+docker push ntalp12/react-docker-test3:0.1 
+//เข้า docke hub check ว่าลงบน hub แล้วจริง
+
+git remote -v
+git remote remove origin
+git remote -v
+git -v //ขึ้นเป็นเวอร์ชัน ถ้าไม่ขึ้นเปิด terminal ใหม่
+
+commit
+
+docke hub token secret
+EXPOSE 3000
+  
+CMD 
+
